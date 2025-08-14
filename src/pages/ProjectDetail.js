@@ -10,8 +10,9 @@ function ProjectDetail() {
 
   useEffect(() => {
     setLoading(true);
-    axios.get(`/api/project/${projectId}/`)
-      .then(res => {
+    axios
+      .get(`/api/v1/projects/${projectId}/`)
+      .then((res) => {
         setProject(res.data);
         setError(null);
       })
@@ -24,7 +25,8 @@ function ProjectDetail() {
 
   if (loading) return <div className="pl-8 pt-8 ml-10">Loading...</div>;
   if (error) return <div className="pl-8 pt-8 ml-10 text-red-500">{error}</div>;
-  if (!project) return <div className="pl-8 pt-8 ml-10">Project not found.</div>;
+  if (!project)
+    return <div className="pl-8 pt-8 ml-10">Project not found.</div>;
 
   return (
     <div className="pl-8 pt-8 ml-10">
@@ -40,11 +42,11 @@ function ProjectDetail() {
       <p className="mb-2">Project Lead: {project.project_lead}</p>
       <p className="mb-2">Assigned Developer: {project.assigned_developer}</p>
       <p className="mb-2">Start Date: {project.start_date}</p>
-      <p className="mb-2">End Date: {project.end_date || 'N/A'}</p>
+      <p className="mb-2">End Date: {project.end_date || "N/A"}</p>
       <p className="mb-2">Created At: {project.created_at}</p>
       <p className="mb-2">Updated At: {project.updated_at}</p>
     </div>
   );
 }
 
-export default ProjectDetail; 
+export default ProjectDetail;

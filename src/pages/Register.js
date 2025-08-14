@@ -26,14 +26,14 @@ function Register({ onRegister }) {
     }
     try {
       // Registration is usually public, but here's how to use fetchWithAuth if needed:
-      const res = await fetchWithAuth("/api/register/", {
+      const res = await fetchWithAuth("/api/v1/auth/register/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           username: form.username,
           email: form.email,
           password: form.password,
-          password2: form.confirmPassword,
+          password_confirm: form.confirmPassword,
         }),
       });
       if (!res.ok) throw new Error();
@@ -48,14 +48,23 @@ function Register({ onRegister }) {
     <div className="flex min-h-screen">
       {/* Left side image */}
       <div className="w-1/2 bg-gray-100 flex items-center justify-center">
-        <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80" alt="Register Visual" className="object-cover h-full w-full" />
+        <img
+          src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80"
+          alt="Register Visual"
+          className="object-cover h-full w-full"
+        />
       </div>
       {/* Right side register card */}
       <div className="w-1/2 flex items-center justify-center">
-        <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md"
+        >
           <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
           {error && <p className="text-red-500 mb-4 text-center">{error}</p>}
-          {success && <p className="text-green-500 mb-4 text-center">{success}</p>}
+          {success && (
+            <p className="text-green-500 mb-4 text-center">{success}</p>
+          )}
           <input
             type="text"
             name="username"
@@ -92,7 +101,12 @@ function Register({ onRegister }) {
             required
             className="w-full px-4 py-2 mb-6 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
-          <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition">Register</button>
+          <button
+            type="submit"
+            className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition"
+          >
+            Register
+          </button>
         </form>
       </div>
     </div>

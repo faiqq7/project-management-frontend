@@ -4,10 +4,21 @@ export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   // Try to get tokens from sessionStorage on first load
-  const [access, setAccess] = useState(() => sessionStorage.getItem("access") || null);
-  const [refresh, setRefresh] = useState(() => sessionStorage.getItem("refresh") || null);
-  const [username, setUsername] = useState(() => sessionStorage.getItem("username") || null);
-  const [userId, setUserId] = useState(() => sessionStorage.getItem("userId") || null);
+  const [access, setAccess] = useState(
+    () => sessionStorage.getItem("access") || null,
+  );
+  const [refresh, setRefresh] = useState(
+    () => sessionStorage.getItem("refresh") || null,
+  );
+  const [username, setUsername] = useState(
+    () => sessionStorage.getItem("username") || null,
+  );
+  const [userId, setUserId] = useState(
+    () => sessionStorage.getItem("userId") || null,
+  );
+  const [userRole, setUserRole] = useState(
+    () => sessionStorage.getItem("userRole") || null,
+  );
 
   useEffect(() => {
     if (access) sessionStorage.setItem("access", access);
@@ -29,18 +40,31 @@ export function AuthProvider({ children }) {
     else sessionStorage.removeItem("userId");
   }, [userId]);
 
-  // Accept username and userId in login
-  const login = (newAccess, newRefresh, newUsername, newUserId) => {
+  useEffect(() => {
+    if (userRole) sessionStorage.setItem("userRole", userRole);
+    else sessionStorage.removeItem("userRole");
+  }, [userRole]);
+
+  // Accept username, userId, and userRole in login
+  const login = (
+    newAccess,
+    newRefresh,
+    newUsername,
+    newUserId,
+    newUserRole,
+  ) => {
     setAccess(newAccess);
     setRefresh(newRefresh);
     setUsername(newUsername);
     setUserId(newUserId);
+    setUserRole(newUserRole);
   };
   const logout = () => {
     setAccess(null);
     setRefresh(null);
     setUsername(null);
     setUserId(null);
+    setUserRole(null);
   };
 
   // Helper to refresh access token
@@ -94,7 +118,18 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ access, refresh, username, userId, login, logout, fetchWithAuth }}>
+    <AuthContext.Provider
+      value={{
+        access,
+        refresh,
+        username,
+        userId,
+        userRole,
+        login,
+        logout,
+        fetchWithAuth,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

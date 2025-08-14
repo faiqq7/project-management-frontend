@@ -4,18 +4,42 @@
   "private": true,
   "proxy": "http://127.0.0.1:8000",
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/icons-material": "^7.3.1",
+    "@mui/material": "^7.3.1",
+    "@mui/x-charts": "^8.10.0",
     "axios": "^1.10.0",
+    "chart.js": "^4.5.0",
     "cra-template-pwa": "2.0.0",
     "react": "^19.1.0",
+    "react-chartjs-2": "^5.3.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.7.0",
-    "react-scripts": "^5.0.1"
+    "react-scripts": "^5.0.1",
+    "reselect": "^5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint src --ext .js,.jsx --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint src --ext .js,.jsx --fix",
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,css,json,md}\"",
+    "format:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,css,json,md}\"",
+    "type-check": "echo 'No TypeScript in this project'",
+    "pre-commit": "npm run lint && npm run format:check && npm run test -- --run --watchAll=false",
+    "fix-all": "npm run lint:fix && npm run format",
+    "backend:format": "cd ../project-management-backend && npm run format",
+    "backend:lint": "cd ../project-management-backend && npm run lint",
+    "backend:fix": "cd ../project-management-backend && npm run fix-all",
+    "backend:migrate": "cd ../project-management-backend && npm run migrate",
+    "backend:server": "cd ../project-management-backend && npm run runserver",
+    "backend:shell": "cd ../project-management-backend && npm run shell",
+    "dev:setup": "cd ../project-management-backend && npm run setup-dev",
+    "dev:backend": "cd ../project-management-backend && python manage.py runserver",
+    "dev:frontend": "npm start"
   },
   "eslintConfig": {
     "extends": [
@@ -39,6 +63,7 @@
     "@tailwindcss/postcss": "^4.1.11",
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.6",
+    "prettier": "^3.0.0",
     "tailwindcss": "^3.4.3"
   }
 }

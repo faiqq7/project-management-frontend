@@ -27,16 +27,20 @@ function Navbar({ className = "" }) {
   };
 
   return (
-    <nav className={`flex items-center justify-between px-8 py-4 bg-white shadow-md ${className}`}>
+    <nav
+      className={`flex items-center justify-between px-8 py-4 bg-white shadow-md ${className}`}
+    >
       <div className="flex items-center gap-4">
         <div className="text-2xl font-bold text-blue-600">
-          <Link to="/">CompanyName</Link>
+          <Link to="/">ZenDev Co</Link>
         </div>
       </div>
       <div>
         {!access ? (
           <Link to="/login">
-            <button className="bg-blue-500 text-white px-5 py-2 rounded-full hover:bg-blue-600 transition">Login</button>
+            <button className="bg-blue-500 text-white px-5 py-2 rounded-full hover:bg-blue-600 transition">
+              Login
+            </button>
           </Link>
         ) : (
           <div className="relative" ref={dropdownRef}>
@@ -48,8 +52,18 @@ function Navbar({ className = "" }) {
             </button>
             {dropdownOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 z-50">
-                <Link to="/profile" className="block px-4 py-2 hover:bg-gray-100">Profile</Link>
-                <Link to="/settings" className="block px-4 py-2 hover:bg-gray-100">Settings</Link>
+                <Link
+                  to="/profile"
+                  className="block px-4 py-2 hover:bg-gray-100"
+                >
+                  Profile
+                </Link>
+                <Link
+                  to="/settings"
+                  className="block px-4 py-2 hover:bg-gray-100"
+                >
+                  Settings
+                </Link>
                 <button
                   onClick={handleLogout}
                   className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-red-500"
