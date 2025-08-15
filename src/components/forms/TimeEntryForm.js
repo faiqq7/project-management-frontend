@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from "react";
 
 export default function TimeEntryForm({ onSubmit, billing }) {
@@ -133,3 +134,8 @@ export default function TimeEntryForm({ onSubmit, billing }) {
     </form>
   );
 }
+
+TimeEntryForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  billing: PropTypes.oneOf(["hourly", "fixed"]).isRequired,
+};

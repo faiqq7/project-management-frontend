@@ -1,7 +1,18 @@
-import React, { useState, useContext } from "react";
+import {
+  Alert,
+  Box,
+  Button,
+  Grid,
+  Link as MLink,
+  Paper,
+  TextField,
+  Typography,
+} from "@mui/material";
 import axios from "axios";
-import { AuthContext } from "../context/AuthContext";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { AuthContext } from "../context/AuthContext";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -61,82 +72,106 @@ function Login() {
   };
 
   return (
-    <div className="flex min-h-screen">
-      <div className="w-1/2 bg-gray-100 flex items-center justify-center">
-        <img
-          src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80"
-          alt="Login Visual"
-          className="object-cover h-full w-full"
-        />
-      </div>
-
-      <div className="w-1/2 flex items-center justify-center">
-        <form
-          onSubmit={handleSubmit}
-          className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md"
-        >
-          <h2 className="text-2xl font-bold mb-6 text-center">
-            {showReset ? "Reset Password" : "Login"}
-          </h2>
-          {error && <p className="text-red-500 mb-4 text-center">{error}</p>}
-          {resetMessage && (
-            <p className="text-green-600 mb-4 text-center">{resetMessage}</p>
-          )}
-          <input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-            className="w-full px-4 py-2 mb-4 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+    <Grid container sx={{ minHeight: "100vh" }}>
+      <Grid item xs={12} md={6} sx={{ display: { xs: "none", md: "block" } }}>
+        <Box sx={{ height: "100%", backgroundColor: "#f5f5f5" }}>
+          <img
+            src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80"
+            alt="Login Visual"
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
-          {!showReset && (
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+        </Box>
+      </Grid>
+      <Grid
+        item
+        xs={12}
+        md={6}
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          p: 2,
+        }}
+      >
+        <Paper elevation={6} sx={{ p: 4, width: "100%", maxWidth: 420 }}>
+          <Typography variant="h5" align="center" sx={{ mb: 2 }}>
+            {showReset ? "Reset Password" : "Login"}
+          </Typography>
+          {error ? (
+            <Alert severity="error" sx={{ mb: 2 }}>
+              {error}
+            </Alert>
+          ) : null}
+          {resetMessage ? (
+            <Alert severity="success" sx={{ mb: 2 }}>
+              {resetMessage}
+            </Alert>
+          ) : null}
+          <Box component="form" onSubmit={handleSubmit} noValidate>
+            <TextField
+              label="Username"
+              fullWidth
+              margin="normal"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               required
-              className="w-full px-4 py-2 mb-6 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
-          )}
-          {showReset && (
-            <>
-              <input
+            {!showReset && (
+              <TextField
+                label="Password"
                 type="password"
-                placeholder="New Password"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
+                fullWidth
+                margin="normal"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full px-4 py-2 mb-4 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
               />
-              <input
-                type="password"
-                placeholder="Confirm New Password"
-                value={newPasswordConfirm}
-                onChange={(e) => setNewPasswordConfirm(e.target.value)}
-                required
-                className="w-full px-4 py-2 mb-6 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-              />
-            </>
-          )}
-          {!showReset ? (
-            <button
-              type="submit"
-              className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition"
-            >
-              Login
-            </button>
-          ) : (
-            <button
-              onClick={handleReset}
-              className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition"
-            >
-              Reset Password
-            </button>
-          )}
-          <div className="mt-4 text-center">
-            <button
+            )}
+            {showReset && (
+              <>
+                <TextField
+                  label="New Password"
+                  type="password"
+                  fullWidth
+                  margin="normal"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  required
+                />
+                <TextField
+                  label="Confirm New Password"
+                  type="password"
+                  fullWidth
+                  margin="normal"
+                  value={newPasswordConfirm}
+                  onChange={(e) => setNewPasswordConfirm(e.target.value)}
+                  required
+                />
+              </>
+            )}
+            {!showReset ? (
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 2 }}
+              >
+                Login
+              </Button>
+            ) : (
+              <Button
+                onClick={handleReset}
+                fullWidth
+                variant="contained"
+                sx={{ mt: 2 }}
+              >
+                Reset Password
+              </Button>
+            )}
+          </Box>
+          <Box sx={{ mt: 2, textAlign: "center" }}>
+            <MLink
+              component="button"
               type="button"
               onClick={() => {
                 setShowReset(!showReset);
@@ -144,14 +179,13 @@ function Login() {
                 setResetMessage("");
                 setResetUsername(username);
               }}
-              className="text-blue-600 hover:underline"
             >
               {showReset ? "Back to Login" : "Forgot password? Reset here"}
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+            </MLink>
+          </Box>
+        </Paper>
+      </Grid>
+    </Grid>
   );
 }
 

@@ -1,8 +1,3 @@
-import React, { useContext } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { useInvoices } from "../context/InvoicesContext";
-import { useProjects } from "../context/ProjectsContext";
-import { AuthContext } from "../context/AuthContext";
 import {
   Button,
   Card,
@@ -11,6 +6,12 @@ import {
   Chip,
   Stack,
 } from "@mui/material";
+import React, { useContext } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+
+import { AuthContext } from "../context/AuthContext";
+import { useInvoices } from "../context/InvoicesContext";
+import { useProjects } from "../context/ProjectsContext";
 
 export default function ProjectInvoices() {
   const { projectId } = useParams();

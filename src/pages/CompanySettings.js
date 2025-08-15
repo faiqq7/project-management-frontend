@@ -1,5 +1,3 @@
-import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../context/AuthContext";
 import {
   Card,
   CardContent,
@@ -25,6 +23,9 @@ import {
   InputLabel,
   FormControl,
 } from "@mui/material";
+import React, { useContext, useEffect, useState } from "react";
+
+import { AuthContext } from "../context/AuthContext";
 
 export default function CompanySettings() {
   const { fetchWithAuth, userRole } = useContext(AuthContext);
@@ -809,7 +810,7 @@ function CompanySettingsForm() {
     setLoading(true);
     try {
       let body;
-      let headers = {};
+      const headers = {};
 
       if (file && file instanceof File) {
         // When uploading a new file, use FormData and ensure proper multipart encoding

@@ -1,5 +1,7 @@
+import PropTypes from "prop-types";
 import React, { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
+
+import { AuthContext } from "../../context/AuthContext";
 
 function AdminRoute({ children }) {
   const { userRole } = useContext(AuthContext);
@@ -19,3 +21,7 @@ function AdminRoute({ children }) {
 }
 
 export default AdminRoute;
+
+AdminRoute.propTypes = {
+  children: PropTypes.node,
+};

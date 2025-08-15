@@ -1,10 +1,19 @@
-import React, { useState, useContext, useEffect } from "react";
 import {
-  Typography,
-  Stack,
-  TextField,
   Button,
+  Checkbox,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Divider,
+  FormControl,
+  FormControlLabel,
+  InputLabel,
+  MenuItem,
   Paper,
+  Select,
+  Stack,
+  Tab,
   Table,
   TableBody,
   TableCell,
@@ -12,19 +21,11 @@ import {
   TableHead,
   TableRow,
   Tabs,
-  Tab,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  MenuItem,
-  Select,
-  InputLabel,
-  FormControl,
-  Checkbox,
-  FormControlLabel,
-  Divider,
+  TextField,
+  Typography,
 } from "@mui/material";
+import React, { useContext, useEffect, useState } from "react";
+
 import { AuthContext } from "../context/AuthContext";
 
 export default function Accounts() {
@@ -72,6 +73,7 @@ export default function Accounts() {
 
   useEffect(() => {
     loadAll();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -1492,7 +1494,8 @@ export default function Accounts() {
                 url = `/api/v1/employees/${form.id}/`;
                 method = "PUT";
                 // Remove id from payload for PUT request and handle empty dates
-                const { id, ...updatePayload } = form;
+                const updatePayload = { ...form };
+                delete updatePayload.id;
 
                 // Convert empty date strings to null for Django
                 if (updatePayload.end_date === "")

@@ -1,6 +1,6 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
+
 import { AuthContext } from "../context/AuthContext";
-import { Link } from "react-router-dom";
 
 function Users() {
   const { fetchWithAuth } = useContext(AuthContext);
@@ -31,7 +31,7 @@ function Users() {
   const [deleteLoading, setDeleteLoading] = useState(false);
 
   // Fetch users
-  const fetchUsers = async () => {
+  const fetchUsers = React.useCallback(async () => {
     try {
       setLoading(true);
       const res = await fetchWithAuth("/api/v1/auth/manage-users/");
@@ -47,11 +47,11 @@ function Users() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [fetchWithAuth]);
 
   useEffect(() => {
     fetchUsers();
-  }, []);
+  }, [fetchUsers]);
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -334,10 +334,14 @@ function Users() {
             <h3 className="text-xl font-bold mb-4">Add User</h3>
             <form onSubmit={handleAddUser} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium mb-1">
+                <label
+                  htmlFor="add_username"
+                  className="block text-sm font-medium mb-1"
+                >
                   Username
                 </label>
                 <input
+                  id="add_username"
                   type="text"
                   name="username"
                   value={form.username}
@@ -347,8 +351,14 @@ function Users() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1">Email</label>
+                <label
+                  htmlFor="add_email"
+                  className="block text-sm font-medium mb-1"
+                >
+                  Email
+                </label>
                 <input
+                  id="add_email"
                   type="email"
                   name="email"
                   value={form.email}
@@ -359,10 +369,14 @@ function Users() {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium mb-1">
+                  <label
+                    htmlFor="add_first_name"
+                    className="block text-sm font-medium mb-1"
+                  >
                     First Name
                   </label>
                   <input
+                    id="add_first_name"
                     type="text"
                     name="first_name"
                     value={form.first_name}
@@ -371,10 +385,14 @@ function Users() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-1">
+                  <label
+                    htmlFor="add_last_name"
+                    className="block text-sm font-medium mb-1"
+                  >
                     Last Name
                   </label>
                   <input
+                    id="add_last_name"
                     type="text"
                     name="last_name"
                     value={form.last_name}
@@ -384,8 +402,14 @@ function Users() {
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1">Role</label>
+                <label
+                  htmlFor="add_role"
+                  className="block text-sm font-medium mb-1"
+                >
+                  Role
+                </label>
                 <select
+                  id="add_role"
                   name="role"
                   value={form.role}
                   onChange={handleInputChange}
@@ -398,10 +422,14 @@ function Users() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1">
+                <label
+                  htmlFor="add_password"
+                  className="block text-sm font-medium mb-1"
+                >
                   Password
                 </label>
                 <input
+                  id="add_password"
                   type="password"
                   name="password"
                   value={form.password}
@@ -411,10 +439,14 @@ function Users() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1">
+                <label
+                  htmlFor="add_password_confirm"
+                  className="block text-sm font-medium mb-1"
+                >
                   Confirm Password
                 </label>
                 <input
+                  id="add_password_confirm"
                   type="password"
                   name="password_confirm"
                   value={form.password_confirm}
@@ -425,13 +457,17 @@ function Users() {
               </div>
               <div className="flex items-center">
                 <input
+                  id="add_is_active"
                   type="checkbox"
                   name="is_active"
                   checked={form.is_active}
                   onChange={handleInputChange}
                   className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                 />
-                <label className="ml-2 block text-sm text-gray-900">
+                <label
+                  htmlFor="add_is_active"
+                  className="ml-2 block text-sm text-gray-900"
+                >
                   Active user
                 </label>
               </div>
@@ -469,10 +505,14 @@ function Users() {
             <h3 className="text-xl font-bold mb-4">Edit User</h3>
             <form onSubmit={handleEditSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium mb-1">
+                <label
+                  htmlFor="edit_username"
+                  className="block text-sm font-medium mb-1"
+                >
                   Username
                 </label>
                 <input
+                  id="edit_username"
                   type="text"
                   name="username"
                   value={editForm.username}
@@ -482,8 +522,14 @@ function Users() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1">Email</label>
+                <label
+                  htmlFor="edit_email"
+                  className="block text-sm font-medium mb-1"
+                >
+                  Email
+                </label>
                 <input
+                  id="edit_email"
                   type="email"
                   name="email"
                   value={editForm.email}
@@ -494,10 +540,14 @@ function Users() {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium mb-1">
+                  <label
+                    htmlFor="edit_first_name"
+                    className="block text-sm font-medium mb-1"
+                  >
                     First Name
                   </label>
                   <input
+                    id="edit_first_name"
                     type="text"
                     name="first_name"
                     value={editForm.first_name || ""}
@@ -506,10 +556,14 @@ function Users() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-1">
+                  <label
+                    htmlFor="edit_last_name"
+                    className="block text-sm font-medium mb-1"
+                  >
                     Last Name
                   </label>
                   <input
+                    id="edit_last_name"
                     type="text"
                     name="last_name"
                     value={editForm.last_name || ""}
@@ -519,8 +573,14 @@ function Users() {
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1">Role</label>
+                <label
+                  htmlFor="edit_role"
+                  className="block text-sm font-medium mb-1"
+                >
+                  Role
+                </label>
                 <select
+                  id="edit_role"
                   name="role"
                   value={editForm.role}
                   onChange={handleEditInputChange}
@@ -533,10 +593,14 @@ function Users() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1">
+                <label
+                  htmlFor="edit_password"
+                  className="block text-sm font-medium mb-1"
+                >
                   New Password (leave blank to keep current)
                 </label>
                 <input
+                  id="edit_password"
                   type="password"
                   name="password"
                   value={editForm.password}
@@ -545,10 +609,14 @@ function Users() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1">
+                <label
+                  htmlFor="edit_password_confirm"
+                  className="block text-sm font-medium mb-1"
+                >
                   Confirm Password
                 </label>
                 <input
+                  id="edit_password_confirm"
                   type="password"
                   name="password_confirm"
                   value={editForm.password_confirm}
@@ -558,13 +626,17 @@ function Users() {
               </div>
               <div className="flex items-center">
                 <input
+                  id="edit_is_active"
                   type="checkbox"
                   name="is_active"
                   checked={editForm.is_active}
                   onChange={handleEditInputChange}
                   className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                 />
-                <label className="ml-2 block text-sm text-gray-900">
+                <label
+                  htmlFor="edit_is_active"
+                  className="ml-2 block text-sm text-gray-900"
+                >
                   Active user
                 </label>
               </div>

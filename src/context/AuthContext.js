@@ -1,4 +1,5 @@
-import React, { createContext, useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import React, { createContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext();
 
@@ -93,7 +94,7 @@ export function AuthProvider({ children }) {
 
   // Helper for API calls with auto-refresh
   const fetchWithAuth = async (url, options = {}) => {
-    let token = access;
+    const token = access;
     let res = await fetch(url, {
       ...options,
       headers: {
@@ -134,3 +135,7 @@ export function AuthProvider({ children }) {
     </AuthContext.Provider>
   );
 }
+
+AuthProvider.propTypes = {
+  children: PropTypes.node,
+};

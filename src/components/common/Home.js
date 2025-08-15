@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import Navbar from "../components/Navbar";
-import Sidebar from "../components/Sidebar";
+
+import Navbar from "../layout/Navbar";
+import Sidebar from "../layout/Sidebar";
 
 function Home() {
   const [sidebarHovered, setSidebarHovered] = useState(false);

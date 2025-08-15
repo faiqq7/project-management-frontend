@@ -1,6 +1,8 @@
+import PropTypes from "prop-types";
 import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
+
+import { AuthContext } from "../../context/AuthContext";
 
 function Sidebar({ onMouseEnter, onMouseLeave, sidebarHovered }) {
   const { logout, userRole } = useContext(AuthContext);
@@ -216,3 +218,9 @@ function Sidebar({ onMouseEnter, onMouseLeave, sidebarHovered }) {
 }
 
 export default Sidebar;
+
+Sidebar.propTypes = {
+  onMouseEnter: PropTypes.func,
+  onMouseLeave: PropTypes.func,
+  sidebarHovered: PropTypes.bool,
+};

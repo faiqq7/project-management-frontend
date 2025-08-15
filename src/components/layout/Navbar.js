@@ -1,6 +1,8 @@
-import React, { useContext, useState, useRef, useEffect } from "react";
+import PropTypes from "prop-types";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
+
+import { AuthContext } from "../../context/AuthContext";
 
 function Navbar({ className = "" }) {
   const { access, logout, username } = useContext(AuthContext);
@@ -80,3 +82,7 @@ function Navbar({ className = "" }) {
 }
 
 export default Navbar;
+
+Navbar.propTypes = {
+  className: PropTypes.string,
+};

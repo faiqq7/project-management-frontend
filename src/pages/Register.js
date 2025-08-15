@@ -1,4 +1,6 @@
-import React, { useState, useContext } from "react";
+import PropTypes from "prop-types";
+import React, { useContext, useState } from "react";
+
 import { AuthContext } from "../context/AuthContext";
 
 function Register({ onRegister }) {
@@ -112,5 +114,9 @@ function Register({ onRegister }) {
     </div>
   );
 }
+
+Register.propTypes = {
+  onRegister: PropTypes.func,
+};
 
 export default Register;

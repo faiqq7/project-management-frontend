@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useContext, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useProjects } from "../context/ProjectsContext";
+
 import { AuthContext } from "../context/AuthContext";
+import { useProjects } from "../context/ProjectsContext";
 
 export default function ProjectLogs() {
   const { projectId } = useParams();

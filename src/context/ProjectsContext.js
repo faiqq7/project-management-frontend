@@ -1,4 +1,6 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import React, { createContext, useContext, useEffect, useState } from "react";
+
 import { AuthContext } from "./AuthContext";
 
 const ProjectsContext = createContext();
@@ -99,6 +101,10 @@ export function ProjectsProvider({ children }) {
     </ProjectsContext.Provider>
   );
 }
+
+ProjectsProvider.propTypes = {
+  children: PropTypes.node,
+};
 
 export function useProjects() {
   return useContext(ProjectsContext);

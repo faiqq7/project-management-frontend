@@ -1,29 +1,30 @@
-import React, { useContext, useState, useEffect } from "react";
-import { useInvoices } from "../context/InvoicesContext";
-import { useProjects } from "../context/ProjectsContext";
-import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
-
-// Minimal MUI import (assumes MUI installed)
 import {
   Button,
   Card,
   CardContent,
-  Typography,
-  TextField,
-  MenuItem,
-  Grid,
+  Checkbox,
   Chip,
+  Grid,
+  MenuItem,
+  Paper,
   Stack,
   Table,
+  TableBody,
+  TableCell,
+  TableContainer,
   TableHead,
   TableRow,
-  TableCell,
-  TableBody,
-  Checkbox,
-  TableContainer,
-  Paper,
+  TextField,
+  Typography,
 } from "@mui/material";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { AuthContext } from "../context/AuthContext";
+import { useInvoices } from "../context/InvoicesContext";
+import { useProjects } from "../context/ProjectsContext";
+
+// Minimal MUI import (assumes MUI installed)
 
 export default function InvoiceGenerator() {
   const { invoices, refreshInvoices, removeInvoice } = useInvoices();
@@ -55,10 +56,8 @@ export default function InvoiceGenerator() {
   });
 
   // Get unique project IDs with at least one invoice
-  const projectIdsWithInvoices = Array.from(
-    new Set(invoices.map((inv) => inv.project)),
-  );
-  const projectsArray = Array.isArray(projects) ? projects : [];
+  // const projectIdsWithInvoices = Array.from(new Set(invoices.map((inv) => inv.project)));
+  // const projectsArray = Array.isArray(projects) ? projects : [];
 
   const fetchFiltered = async () => {
     const params = new URLSearchParams();
@@ -70,10 +69,10 @@ export default function InvoiceGenerator() {
     await refreshInvoices(params.toString() ? `?${params.toString()}` : "");
   };
 
+  const appliedFiltersKey = `${filters.status}|${filters.project}|${filters.start}|${filters.end}|${filters.sort}`;
   useEffect(() => {
     fetchFiltered();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [appliedFiltersKey]);
 
   const generateInvoice = async () => {
     if (!genProject) return;

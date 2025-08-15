@@ -1,4 +1,12 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useCallback,
+} from "react";
+
 import { AuthContext } from "./AuthContext";
 
 const TimeLogsContext = createContext();
@@ -10,17 +18,17 @@ export function TimeLogsProvider({ children }) {
   const { fetchWithAuth } = useContext(AuthContext);
 
   // Fetch logs from backend
-  const fetchLogs = async () => {
+  const fetchLogs = useCallback(async () => {
     const res = await fetchWithAuth("/api/v1/timelogs/");
     if (res.ok) {
       const data = await res.json();
       setTimeLogs(data.results || data);
     }
-  };
+  }, [fetchWithAuth]);
 
   useEffect(() => {
     fetchLogs();
-  }, [fetchWithAuth]);
+  }, [fetchLogs]);
 
   // Add a new time log via backend
   const addTimeLog = async (log) => {
@@ -79,6 +87,10 @@ export function TimeLogsProvider({ children }) {
     </TimeLogsContext.Provider>
   );
 }
+
+TimeLogsProvider.propTypes = {
+  children: PropTypes.node,
+};
 
 export function useTimeLogs() {
   return useContext(TimeLogsContext);

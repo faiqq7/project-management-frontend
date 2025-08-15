@@ -1,41 +1,42 @@
-import React, { useState, useContext, useEffect } from "react";
-import { useProjects } from "../context/ProjectsContext";
-import { AuthContext } from "../context/AuthContext";
-import { Link } from "react-router-dom";
 import {
+  Add as AddIcon,
+  Delete as DeleteIcon,
+  Edit as EditIcon,
+  OpenInNew as OpenInNewIcon,
+} from "@mui/icons-material";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  FormControl,
+  IconButton,
+  InputLabel,
+  MenuItem,
   Paper,
+  Select,
+  Stack,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  IconButton,
-  Tooltip,
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
   TextField,
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
-  Stack,
+  Tooltip,
   Typography,
 } from "@mui/material";
-import {
-  Edit as EditIcon,
-  Delete as DeleteIcon,
-  Add as AddIcon,
-  OpenInNew as OpenInNewIcon,
-} from "@mui/icons-material";
+import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
+import { AuthContext } from "../context/AuthContext";
+import { useProjects } from "../context/ProjectsContext";
 
 function Projects() {
-  const [sidebarHovered, setSidebarHovered] = useState(false);
+  const [sidebarHovered] = useState(false);
   const { projects, addProject, updateProject, deleteProject } = useProjects();
-  const { userId, fetchWithAuth } = useContext(AuthContext);
+  const { fetchWithAuth } = useContext(AuthContext);
   const [showModal, setShowModal] = useState(false);
   const [users, setUsers] = useState([]);
   const [form, setForm] = useState({
@@ -74,6 +75,7 @@ function Projects() {
           setUsers(data);
         }
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.error("Failed to fetch users:", error);
       }
     };

@@ -1,31 +1,31 @@
 import React from "react";
 import {
+  Outlet,
+  Route,
   BrowserRouter as Router,
   Routes,
-  Route,
-  Outlet,
 } from "react-router-dom";
+
+import AdminRoute from "./components/common/AdminRoute";
+import Home from "./components/common/Home";
+import PrivateRoute from "./components/common/PrivateRoute";
 import { AuthProvider } from "./context/AuthContext";
+import { InvoicesProvider } from "./context/InvoicesContext";
 import { ProjectsProvider } from "./context/ProjectsContext";
 import { TimeLogsProvider } from "./context/TimeLogsContext";
-import { InvoicesProvider } from "./context/InvoicesContext";
-
-import Home from "./components/Home";
-import Dashboard from "./pages/DashBoard";
-import Projects from "./pages/Projects";
-import ProjectDetail from "./pages/ProjectDetail";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import PrivateRoute from "./components/PrivateRoute";
-import TimeLogs from "./pages/TimeLogs";
-import InvoiceGenerator from "./pages/InvoiceGenerator";
-import ProjectLogs from "./pages/ProjectLogs";
-import ProjectInvoices from "./pages/ProjectInvoices";
-import InvoiceHistory from "./pages/InvoiceHistory";
 import Accounts from "./pages/Accounts";
 import CompanySettings from "./pages/CompanySettings";
+import Dashboard from "./pages/DashBoard";
+import InvoiceGenerator from "./pages/InvoiceGenerator";
+import InvoiceHistory from "./pages/InvoiceHistory";
+import Login from "./pages/Login";
+import ProjectDetail from "./pages/ProjectDetail";
+import ProjectInvoices from "./pages/ProjectInvoices";
+import ProjectLogs from "./pages/ProjectLogs";
+import Projects from "./pages/Projects";
+import Register from "./pages/Register";
+import TimeLogs from "./pages/TimeLogs";
 import Users from "./pages/Users";
-import AdminRoute from "./components/AdminRoute";
 
 const PrivateLayout = () => (
   <>

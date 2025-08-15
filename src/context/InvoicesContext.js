@@ -1,4 +1,6 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import React, { createContext, useContext, useEffect, useState } from "react";
+
 import { AuthContext } from "./AuthContext";
 
 const InvoicesContext = createContext();
@@ -94,6 +96,10 @@ export function InvoicesProvider({ children }) {
     </InvoicesContext.Provider>
   );
 }
+
+InvoicesProvider.propTypes = {
+  children: PropTypes.node,
+};
 
 export function useInvoices() {
   return useContext(InvoicesContext);

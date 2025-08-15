@@ -1,22 +1,22 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
-import { AuthContext } from "../context/AuthContext";
-import { useInvoices } from "../context/InvoicesContext";
 import {
+  Box,
+  Button,
   Card,
   CardContent,
-  Typography,
-  Grid,
-  TextField,
-  Stack,
-  Container,
-  Button,
   CircularProgress,
-  Box,
+  Container,
+  Grid,
+  Stack,
+  TextField,
+  Typography,
 } from "@mui/material";
-import { LineChart, PieChart, BarChart } from "@mui/x-charts";
+import { BarChart, LineChart, PieChart } from "@mui/x-charts";
+import React, { useContext, useEffect, useMemo, useState } from "react";
+
+import { AuthContext } from "../context/AuthContext";
 
 function Dashboard() {
-  const [sidebarHovered, setSidebarHovered] = useState(false);
+  const [sidebarHovered] = useState(false);
   const { username } = useContext(AuthContext);
   const { fetchWithAuth } = useContext(AuthContext);
   const hour = new Date().getHours();

@@ -1,26 +1,27 @@
-import React, { useState, useContext } from "react";
-import { useTimeLogs } from "../context/TimeLogsContext";
-import { useProjects } from "../context/ProjectsContext";
-import { useInvoices } from "../context/InvoicesContext";
-import TimeEntryForm from "../components/TimeEntryForm";
-import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
 import {
   Button,
   Card,
-  Typography,
   Grid,
-  TextField,
   MenuItem,
-  Stack,
   Paper,
+  Stack,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
+  TextField,
+  Typography,
 } from "@mui/material";
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import TimeEntryForm from "../components/forms/TimeEntryForm";
+import { AuthContext } from "../context/AuthContext";
+import { useInvoices } from "../context/InvoicesContext";
+import { useProjects } from "../context/ProjectsContext";
+import { useTimeLogs } from "../context/TimeLogsContext";
 
 export default function TimeLogs() {
   const { addTimeLog, timeLogs } = useTimeLogs();

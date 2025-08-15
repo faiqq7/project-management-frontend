@@ -31,6 +31,8 @@
     "type-check": "echo 'No TypeScript in this project'",
     "pre-commit": "npm run lint && npm run format:check && npm run test -- --run --watchAll=false",
     "fix-all": "npm run lint:fix && npm run format",
+    "prepare": "husky install",
+    "postinstall": "husky install",
     "backend:format": "cd ../project-management-backend && npm run format",
     "backend:lint": "cd ../project-management-backend && npm run lint",
     "backend:fix": "cd ../project-management-backend && npm run fix-all",
@@ -62,8 +64,28 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.11",
     "autoprefixer": "^10.4.21",
+    "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "eslint-plugin-react": "^7.33.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.0.0",
     "postcss": "^8.5.6",
     "prettier": "^3.0.0",
     "tailwindcss": "^3.4.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "src/**/*.{css,scss,json,md}": [
+      "prettier --write"
+    ]
   }
 }
